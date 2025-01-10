@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colaborador</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Vista principal -->
+    <div class="container mt-5" id="mainView">
+        <h2 class="text-center mb-4">Datos Colaborador</h2>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <button type="button" class="btn btn-outline-primary" id="btnAddCollaborator">Añadir Colaborador</button>
+            <button type="button" class="btn btn-outline-secondary" id="btnPayments">Pagos</button>
+        </div>
+        <!-- Tabla de Colaboradores -->
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Identificación</th>
+                    <th>Teléfono</th>
+                    <th>Sueldo Fijo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    
+    <!-- Vista de Pagos -->
+<!-- Vista de Pagos -->
+<div class="container mt-5 d-none" id="paymentsView">
+    <h2 class="text-center mb-4">Pagos</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <button type="button" class="btn btn-outline-secondary" id="btnBackToMain">Regresar</button>
+        <!-- Botón Pagar Sueldo -->
+        <button type="button" class="btn btn-outline-success" id="btnPaySalary">Pagar Sueldo</button>
+    </div>
+    <!-- Tabla de Pagos -->
+    <table id="paymentsTable" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Nombre</th>
+                <th>Monto</th>
+                <th>Concepto</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<!-- Modal para pagar sueldo -->
+<div class="modal fade" id="paySalaryModal" tabindex="-1" aria-labelledby="paySalaryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paySalaryModalLabel">Pagar Sueldo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="paySalaryForm">
+                    <div class="mb-3">
+                        <label for="collaboratorSelect" class="form-label">Seleccionar Colaborador</label>
+                        <!-- Sección donde se muestra el nombre del colaborador seleccionado o un placeholder -->
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="collaboratorSelectButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                Seleccionar Colaborador
+                            </button>
+                            <ul class="dropdown-menu w-100" id="collaboratorSelect">
+                                <!-- Opciones de colaboradores se agregarán dinámicamente aquí -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Monto</label>
+                        <input type="number" class="form-control" id="amount" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="conceptSelect" class="form-label">Seleccionar Concepto</label>
+                        <select class="form-select" id="conceptSelect" required>
+                            <option value="Sueldo">Sueldo</option>
+                            <option value="Bonificación">Bonificación</option>
+                            <option value="Comisión">Comisión</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="paymentDate" class="form-label">Fecha</label>
+                        <input type="date" class="form-control" id="paymentDate" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Pagar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Modal para añadir/editar colaborador -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Colaborador</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="collaboratorForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id" class="form-label">Identificación</label>
+                            <input type="text" class="form-control" id="id" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="money" class="form-label">Sueldo Fijo</label>
+                            <input type="text" class="form-control" id="money" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="colaborador.js"></script>
+</body>
+</html>

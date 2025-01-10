@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMC</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>GMC CARWASH & AUTO DETAILING</h1>
+        <form action="/CarWashServlet" method="post">
+            <label for="carModel">Modelo de Carro:</label>
+            <input type="text" id="carModel" name="carModel" required>
+
+            <label for="serviceType">Tipo de Servicio:</label>
+            <select id="serviceType" name="serviceType" required>
+                <option value="basic">Lavado Basico</option>
+                <option value="premium">Lavado y pulido</option>
+                <option value="full">Servicio Completo</option>
+            </select>
+
+            <label for="customerName">Datos del Cliente:</label>
+            <input type="text" id="customerName" name="customerName" required>
+
+            <label for="appointmentDate">Fecha:</label>
+            <input type="date" id="appointmentDate" name="appointmentDate" required>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>
