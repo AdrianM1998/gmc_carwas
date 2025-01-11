@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERVICIOS</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">GMC-SERVICIOS</h2>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="ingresos-tab" data-bs-toggle="tab" data-bs-target="#ingresos"
+                    type="button" role="tab" aria-controls="ingresos" aria-selected="true">INGRESOS</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="realizados-tab" data-bs-toggle="tab" data-bs-target="#realizados"
+                    type="button" role="tab" aria-controls="realizados" aria-selected="false">REALIZADOS</button>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-4" id="myTabContent">
+            <!-- Vista de INGRESOS -->
+            <div class="tab-pane fade show active" id="ingresos" role="tabpanel" aria-labelledby="ingresos-tab">
+
+                <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addIngresoModal">AÑADIR
+                    INGRESO</button>
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>PLACA</th>
+                            <th>MARCA</th>
+                            <th>TIPO VEHÍCULO</th>
+                            <th>CLIENTE</th>
+                            <th>TELEFONO</th>
+                            <th>SERVICIOS/PRODUCTOS</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Vista de REALIZADOS -->
+            <div class="tab-pane fade" id="realizados" role="tabpanel" aria-labelledby="realizados-tab">
+                <h4 class="text-center mb-4">Servicios y Productos Realizados</h4>
+                <table id="realizadosTable" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>PLACA</th>
+                            <th>MARCA</th>
+                            <th>TIPO VEHÍCULO</th>
+                            <th>CLIENTE</th>
+                            <th>TELEFONO</th>
+                            <th>SERVICIOS/PRODUCTOS</th>
+                            <th>MÉTODO DE PAGO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para Añadir Ingreso -->
+    <div class="modal fade" id="addIngresoModal" tabindex="-1" aria-labelledby="addIngresoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addIngresoModalLabel">Añadir Ingreso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addIngresoForm">
+                        <div class="mb-3">
+                            <label for="placa" class="form-label">Placa</label>
+                            <div class="input-group">
+                                <input type="text" id="placa" class="form-control" placeholder="Ingrese la placa"
+                                    required>
+                                <button class="btn btn-secondary" type="button"><i class="bi bi-search"></i></button>
+                            </div>
+                        </div>
+                        <h6>Datos del Cliente</h6>
+                        <div class="mb-3">
+                            <input type="text" id="cliente" class="form-control" placeholder="Nombre del cliente"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" id="telefono" class="form-control" placeholder="Teléfono" required>
+                        </div>
+                        <h6>Datos del Vehículo</h6>
+                        <div class="mb-3">
+                            <input type="text" id="marca" class="form-control" placeholder="Marca" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" id="modelo" class="form-control" placeholder="Modelo" required>
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" id="tipoVehiculo" required>
+                                <option selected disabled>Seleccione el tipo de vehículo</option>
+                                <option value="Auto">Auto</option>
+                                <option value="SUV">SUV</option>
+                                <option value="Camioneta 3F">Camioneta 3F</option>
+                                <option value="Pick Up">Pick Up</option>
+                                <option value="Mini Van">Mini Van</option>
+                                <option value="Van">Van</option>
+                                <option value="Moto Lineal">Moto Lineal</option>
+                                <option value="Moto Car">Moto Car</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="guardarIngreso">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Añadir Servicio -->
+    <div class="modal fade" id="addServicioModal" tabindex="-1" aria-labelledby="addServicioModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addServicioModalLabel">Añadir Servicio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addServicioForm">
+                        <div class="mb-3">
+                            <label for="tipoVenta" class="form-label">Tipo de Venta</label>
+                            <select class="form-select" id="tipoVenta" required>
+                                <option selected disabled>Seleccione una opción</option>
+                                <option value="Producto">Producto</option>
+                                <option value="Servicio">Servicio</option>
+                            </select>
+                        </div>
+                        <div id="productoContainer" class="mb-3 d-none">
+                            <label for="producto" class="form-label">Producto</label>
+                            <input type="text" id="producto" class="form-control" placeholder="Ingrese el producto">
+                        </div>
+                        <div id="servicioContainer" class="d-none">
+                            <div class="mb-3">
+                                <label for="tipoServicio" class="form-label">Tipo de Servicio</label>
+                                <select class="form-select" id="tipoServicio">
+                                    <option selected disabled>Seleccione un tipo de servicio</option>
+                                    <option value="Basico">Servicio Básico</option>
+                                    <option value="Especial">Servicio Especial</option>
+                                </select>
+                            </div>
+                            <div id="servicioBasicoContainer" class="mb-3 d-none">
+                                <label for="servicioBasico" class="form-label">Servicio Básico</label>
+                                <select class="form-select" id="servicioBasico">
+                                    <option value="Lavado Basico">Lavado Básico</option>
+                                    <option value="Lavado Basico + Cera">Lavado Básico + Cera</option>
+                                    <option value="Lavado Basico + Cera Carnauba">Lavado Básico + Cera Carnauba</option>
+                                </select>
+                            </div>
+                            <div id="servicioEspecialContainer" class="mb-3 d-none">
+                                <label for="servicioEspecial" class="form-label">Servicio Especial</label>
+                                <select class="form-select" id="servicioEspecial">
+                                    <option value="Lavado Salon">Lavado Salón</option>
+                                    <option value="Lavado Asientos">Lavado Asientos</option>
+                                    <option value="Lavado Cinturones">Lavado Cinturones</option>
+                                    <option value="Lavado de Techo">Lavado de Techo</option>
+                                    <option value="Lavado de Pisos">Lavado de Pisos</option>
+                                    <option value="Tratamiento de Cueros">Tratamiento de Cueros</option>
+                                    <option value="Tratamiento de Faros">Tratamiento de Faros</option>
+                                    <option value="Descontaminacion de Pinturas">Descontaminación de Pinturas</option>
+                                    <option value="Lavado de Motor">Lavado de Motor</option>
+                                    <option value="Lavado de Alfombra">Lavado de Alfombra</option>
+                                    <option value="Lavado de Chasis">Lavado de Chasis</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="colaborador" class="form-label">Colaborador</label>
+                            <select class="form-select" id="colaborador">
+                                <option selected disabled>Seleccione un colaborador</option>
+                                <!-- Opciones se generarán dinámicamente -->
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para Pagar -->
+    <div class="modal fade" id="pagarModal" tabindex="-1" aria-labelledby="pagarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pagarModalLabel">Pagar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Producto/Servicio</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detallePago">
+                            <!-- Aquí se llenará dinámicamente con datos desde tu base de datos -->
+                        </tbody>
+                    </table>
+                    <div class="mb-3">
+                        <label for="total" class="form-label">Total:</label>
+                        <input type="text" id="total" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="metodoPago" class="form-label">Método de Pago</label>
+                        <select id="metodoPago" class="form-select" required>
+                            <option selected disabled>Seleccione un método</option>
+                            <option value="Yape">Yape</option>
+                            <option value="Plin">Plin</option>
+                            <option value="Transferencia">Transferencia</option>
+                            <option value="Efectivo">Efectivo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" id="confirmarPago">Pagar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para Editar Ingreso -->
+    <div class="modal fade" id="editIngresoModal" tabindex="-1" aria-labelledby="editIngresoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editIngresoModalLabel">Editar Ingreso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editIngresoForm">
+                        <input type="hidden" id="editRowIndex">
+                        <div class="mb-3">
+                            <label for="editPlaca" class="form-label">Placa</label>
+                            <input type="text" id="editPlaca" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCliente" class="form-label">Cliente</label>
+                            <input type="text" id="editCliente" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editMarca" class="form-label">Marca</label>
+                            <input type="text" id="editMarca" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTipoVehiculo" class="form-label">Tipo Vehículo</label>
+                            <input type="text" id="editTipoVehiculo" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="guardarCambios">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="servicios.js">
+    </script>
+
+</body>
+
+</html>
