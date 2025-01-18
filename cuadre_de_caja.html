@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUADRE DE CAJA</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">CUADRE DE CAJA</h2>
+    
+    <!-- Botones -->
+    <div class="mb-3">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filtroModal">FILTROS</button>
+        <button class="btn btn-secondary" id="quitarFiltro">QUITAR FILTRO</button>
+    </div>
+    
+    <!-- DataTable -->
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>FECHA</th>
+                <th>DÍA</th>
+                <th>VEHÍCULOS</th>
+                <th>PRODUCTOS Y/O SERVICIOS</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los datos se insertarán dinámicamente desde la base de datos -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal Filtros -->
+<div class="modal fade" id="filtroModal" tabindex="-1" aria-labelledby="filtroModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filtroModalLabel">Seleccione un filtro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <label for="filtro">Seleccione el tipo de filtro:</label>
+            <select class="form-select" id="filtro">
+                <option value="semana">Semana</option>
+                <option value="mes">Mes</option>
+            </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="aplicarFiltro">Aplicar Filtro</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para detalles de vehículos -->
+<div class="modal fade" id="vehiculosModal" tabindex="-1" aria-labelledby="vehiculosModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="vehiculosModalLabel">Detalles de Vehículos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul id="vehiculosDetalle" class="list-group">
+            <!-- Detalles de vehículos se agregarán dinámicamente -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para detalles de productos y servicios -->
+<div class="modal fade" id="productosModal" tabindex="-1" aria-labelledby="productosModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productosModalLabel">Detalles de Productos y Servicios</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul id="productosDetalle" class="list-group">
+            <!-- Detalles de productos y servicios se agregarán dinámicamente -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<script src="cuadre_de_caja.js">
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
